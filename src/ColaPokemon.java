@@ -9,12 +9,15 @@ public class ColaPokemon {
 
 
     public void encolarPokemon(String nombre, String tipo, int nivelPoder, String habilidad, String estado, JTextArea cont){
+        //Se añade un pokemon por medio de el constructor por defecto
         Cola.add(new Pokemon(nombre, tipo, nivelPoder, habilidad,estado));
+        //Se crean 4 pokemones predefinidos con el constructor
         Cola.add(new Pokemon("Pikachu", "Electrico", 34, "Levitacion", "Activo"));
         Cola.add(new Pokemon("Charizard", "Fuego", 45, "Intimidacion", "Desmayado"));
         Cola.add(new Pokemon("Gyarados", "Agua", 50, "Pistola Agua", "Curado"));
         Cola.add(new Pokemon("Geodude", "Roca", 24, "Robustez", "Debilitado"));
 
+        //Se recorre la lista con un for each para mostrar todos los pokemones ingresados
         for (Pokemon pok : Cola){
             cont.append(pok.toString() + "\n");
         }
@@ -59,36 +62,50 @@ public class ColaPokemon {
 
     public void Filtrar_por_habilidad(String habilidad, JTextArea cont) {
 
+        //Creamos una cola temporal para almacenar los pokemones que coinciden con la habilidad
         Queue<Pokemon> NuevaCola = new LinkedList<>();
 
+        //Se verifica que la cola tenga elementos
         if (!Cola.isEmpty()) {
-            for (Pokemon poke : Cola){
-                if (habilidad.equals(poke.getHabilidad())){
+            //Creamos un for each para recorrer todos los pokemones de la lista
+            for (Pokemon poke : Cola) {
+                //Creamos un if para ver si la habilidad que se ingreso es igual a la habilidad de el pokemon
+                if (habilidad.equals(poke.getHabilidad())) {
+                    //Si coinciden se agrega a la cola temporal
                     NuevaCola.add(poke);
                 }
             }
+            //Se muestran los poquemones que coincidieron con un foreach en la nueva cola
+            for (Pokemon pok : NuevaCola) {
+                cont.append(pok.toString() + "\n");
+            }
+        } else {
+            //Si no hay se muestra un mensaje de error
+            JOptionPane.showMessageDialog(null, "No existen poquemones en la lista");
+        }
 
 
-        }
-        for (Pokemon pok : NuevaCola) {
-            cont.append(pok.toString() + "\n");
-        }
     }
 
     public void evolucionarPokemon(JTextArea cont){
 
-
+        //Creamos una cola para ingresar los pokemones que pueden evolucionar
         Queue<Pokemon> pokemonesEvolucionados = new LinkedList<>();
+
 
         try{
             boolean evolucion = false;
-
+            //Recorremos la cola de pokemones con un for each
             for (Pokemon pok : Cola){
+                //Generamos una variable que adquiera el valor de el poder del pokemos
                 int poderPokemon = pok.getNivelPoder();
+                //Verificamos que el pokemon pueda evolucionar
                 if (poderPokemon >= NIVEL_EVOLUCION){
+                    //Hacemos el update
                     poderPokemon = (int) (poderPokemon +(poderPokemon*0.20));
                     pok.setNivelPoder(poderPokemon);
                     pok.setEstado("Evolucionando");
+                    //Agregamos el pokemon a la nueva cola
                     pokemonesEvolucionados.add(pok);
                     evolucion = true;
                 }
@@ -98,7 +115,7 @@ public class ColaPokemon {
                 throw new Exception ("No hay pokemones para evolcuionar");
             }
             cont.append("Lista de pokemones evolucionados");
-
+            //Mostramos los pokemones que ingresamos a la nueva cola mediante un for each
             for(Pokemon pok : pokemonesEvolucionados){
                 cont.append(pok.toString() + "\n");
             }
