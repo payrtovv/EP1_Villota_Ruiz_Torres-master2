@@ -24,38 +24,48 @@ public class ColaPokemon {
 
     }
 
+    public boolean Comprobar() {
+        return Cola.peek() == null;
+    }
+
 
     public void AjustarPoder(){
+        //Se comprueba que la cola no este vacia
+        if (Comprobar()) {
+            JOptionPane.showMessageDialog(null,"La cola está vacía ");
+        } else {
+            // Se recorre toda la cola para ajustar el poder de los pokemons.
 
+            for (Pokemon poke: Cola ) {
+                //Creamos variables para guardar las caracteristicas de los pokemones
+                float PerfectPoder = poke.getNivelPoder();
+                String tipo = poke.getTipo();
 
-        // Se recorre toda la cola para ajustar el poder de los pokemons.
-        for (Pokemon poke: Cola ) {
-            float PerfectPoder = poke.getNivelPoder();
-            String tipo = poke.getTipo();
-            switch (tipo) {
-                case "Fuego":
-                    // Si el tipo del pokemon coincide ajusta su poder
-                    PerfectPoder *= 1.3F;
-                    break;
-                case "Agua":
-                    PerfectPoder *= 1.5F;
-                    break;
-                case "Planta":
-                    PerfectPoder *= 1.2F;
-                    break;
-                default:
-                    // Los demás tipos elementales no reciben un cambio en su nivel de poder
-                    break;
+                switch (tipo) {
+                    case "Fuego":
+                        // Si el tipo del pokemon coincide ajusta su poder
+                        PerfectPoder *= 1.3F;
+                        break;
+                    case "Agua":
+                        PerfectPoder *= 1.5F;
+                        break;
+                    case "Planta":
+                        PerfectPoder *= 1.2F;
+                        break;
+                    default:
+                        // Los demás tipos elementales no reciben un cambio en su nivel de poder
+                        break;
+                }
+
+                // Se crea una cadena con la información de cada pokemon.
+                String data =   "Nombre Pokemon: " + poke.getNombre() + "\n" +
+                        "Tipo Elemental: " + poke.getTipo() + "\n" +
+                        "Habilidad: " + poke.getHabilidad() + "\n" +
+                        "Poder Ajustado: " + PerfectPoder;
+
+                // Panel para mostrar los cambios
+                JOptionPane.showMessageDialog(null,"Información del Pokemon " + "\n" + data);
             }
-
-            // Se crea una cadena con la información de cada pokemon.
-            String data =   "Nombre Pokemon: " + poke.getNombre() + "\n" +
-                    "Tipo Elemental: " + poke.getTipo() + "\n" +
-                    "Habilidad: " + poke.getHabilidad() + "\n" +
-                    "Poder Ajustado: " + PerfectPoder;
-
-            // Panel para mostrar los cambios
-            JOptionPane.showMessageDialog(null,"Información del Pokemon " + "\n" + data);
         }
     }
 
@@ -120,7 +130,8 @@ public class ColaPokemon {
                 cont.append(pok.toString() + "\n");
             }
         }catch(Exception e){
-            //poner el error en Jpanel
+            JOptionPane.showMessageDialog(null, "No hay pokemons que cumplan con las condiciones para evolucionar.");
+
         }
 
 
