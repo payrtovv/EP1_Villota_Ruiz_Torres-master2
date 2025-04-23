@@ -32,7 +32,7 @@ public class ColaPokemon {
     public void AjustarPoder(){
         //Se comprueba que la cola no este vacia
         if (Comprobar()) {
-            JOptionPane.showMessageDialog(null,"La cola está vacía ");
+            JOptionPane.showMessageDialog(null,"No hay pokemons registrados ");
         } else {
             // Se recorre toda la cola para ajustar el poder de los pokemons.
 
@@ -91,7 +91,7 @@ public class ColaPokemon {
             }
         } else {
             //Si no hay se muestra un mensaje de error
-            JOptionPane.showMessageDialog(null, "No existen poquemones en la lista");
+            JOptionPane.showMessageDialog(null, "No hay pokemons registrados");
         }
 
 
